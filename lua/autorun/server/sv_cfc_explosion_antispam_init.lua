@@ -73,4 +73,4 @@ hook.Add( "EntityTakeDamage", "CFC_ExplosionAntispam_RestrictDamage", function( 
     logDamage( pos, clearTime )
 end )
 
-hook.Add( "CFC_Anticrash_LagEvent_FoundOffender", "CFC_ExplosionAntispam_StopAllDamage", function() CFC_ExplosionAntispam.stopAllDamage() end )
+hook.Add( "z_anticrash_LagEvent_FoundOffender", "CFC_ExplosionAntispam_StopAllDamage", function() CFC_ExplosionAntispam.stopAllDamage() end )
