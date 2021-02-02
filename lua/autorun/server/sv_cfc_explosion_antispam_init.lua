@@ -76,12 +76,13 @@ local function logDamage( pos, clearTime )
 end
 
 hook.Add( "EntityTakeDamage", "CFC_ExplosionAntispam_RestrictDamage", function( ent, dmg )
-    if stopAllDamage then return true end
     if not IsValid( ent ) then return end
     if ent:IsPlayer() then return end
 
     local pos, isDirectBurn = validateExplosion(  )
     if not pos then return end
+
+    if stopAllDamage then return true end
 
     local clearTime = restrictDamage( ent, pos, isDirectBurn )
     if clearTime == true then return true end
