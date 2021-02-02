@@ -79,7 +79,7 @@ hook.Add( "EntityTakeDamage", "CFC_ExplosionAntispam_RestrictDamage", function( 
     if not IsValid( ent ) then return end
     if ent:IsPlayer() then return end
 
-    local pos, isDirectBurn = validateExplosion(  )
+    local pos, isDirectBurn = validateExplosion( ent, dmg )
     if not pos then return end
 
     if stopAllDamage then return true end
