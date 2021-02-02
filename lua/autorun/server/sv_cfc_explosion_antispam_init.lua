@@ -1,12 +1,12 @@
 CFCExplosionAntispam = CFCExplosionAntispam or {}
 
 CFCExplosionAntispam.SETTINGS = {
-    NEAR_DIST = math.pow( 250, 2 ) -- How close explosive damage events have to be for limitations to apply
-    MAX_NEAR = 10 -- The max number of explosive damage events allowed in an area
-    EXPLOSION_TIMEOUT = 1 -- How long explosive damage events stay logged for
-    BARREL_TIMOUT = 2 -- Base timeout duration for explosive barrels
-    BARREL_TIMOUT_OFFSET_MAX = 1 -- Adds random extra timeout duration from 0 to this value to barrels to look more natural
-    STOP_ALL_DAMAGE_TIMEOUT = 10 -- Default time that stopAllDamage() lasts for
+    NEAR_DIST = CreateConVar( "cfc_explosion_antispam_near_dist", math.pow( 250, 2 ), FCVAR_NONE, "How close explosive damage events must be to get limited, to the power of 2 (default 250^2)", 1, 2^31 - 1 )
+    MAX_NEAR = CreateConVar( "cfc_explosion_antispam_max_near", 10, FCVAR_NONE, "The max number of explosive damage events allowed in an area (default 10)", 1, 50000 )
+    EXPLOSION_TIMEOUT = CreateConVar( "cfc_explosion_antispam_explosion_timeout", 1, FCVAR_NONE, "How long explosive damage events stay logged for, in seconds (default 1)", 0, 50000 )
+    BARREL_TIMOUT = CreateConVar( "cfc_explosion_antispam_barrel_timeout", 2, FCVAR_NONE, "Base timeout duration for explosive props, overrides the standard explosion timeout (default 2)", 0, 50000 )
+    BARREL_TIMOUT_OFFSET_MAX = CreateConVar( "cfc_explosion_antispam_barrel_timeout_offset_max", 1, FCVAR_NONE, "Adds random extra timeout duration (from 0 to this value) to explosive props so their explosions look more natural (default 1)", 0, 50000 )
+    STOP_ALL_DAMAGE_TIMEOUT = CreateConVar( "cfc_explosion_antispam_stop_all_timeout", 10, FCVAR_NONE, "Default duration to forcefully stop all explosive damage if CFCExplosionAntispam.stopAllDamage() is called (default 10)", 0, 50000 )
 }
 
 local stopAllDamage = false
@@ -16,7 +16,7 @@ local uniqueKey = 0
 -- Prevents all explosive damage events from dealing damage for a time. Useful for if the server is lagging heavily.
 function CFCExplosionAntispam.stopAllDamage( duration )
     stopAllDamage = true
-    duration = duration or CFCExplosionAntispam.SETTINGS.STOP_ALL_DAMAGE_TIMEOUT
+    duration = duration or CFCExplosionAntispam.SETTINGS.STOP_ALL_DAMAGE_TIMEOUT:GetFloat()
 
     timer.Simple( duration, function() stopAllDamage = false end )
 
@@ -46,17 +46,17 @@ end
 
 local function restrictDamage( ent, pos, isDirectBurn )
     local nearCount = 0
-    local clearTime = CFCExplosionAntispam.SETTINGS.EXPLOSION_TIMEOUT
+    local clearTime = CFCExplosionAntispam.SETTINGS.EXPLOSION_TIMEOUT:GetFloat()
 
     for _, oldPos in pairs( recentDamagePositions ) do
-        if oldPos:DistToSqr( pos ) <= CFCExplosionAntispam.SETTINGS.NEAR_DIST then
+        if oldPos:DistToSqr( pos ) <= CFCExplosionAntispam.SETTINGS.NEAR_DIST:GetFloat() then
             nearCount = nearCount + 1
         end
 
-        if nearCount >= CFCExplosionAntispam.SETTINGS.MAX_NEAR then
+        if nearCount >= CFCExplosionAntispam.SETTINGS.MAX_NEAR:GetInt() then
             return true
         elseif isDirectBurn then
-            clearTime = CFCExplosionAntispam.SETTINGS.BARREL_TIMOUT + math.Rand( 0, CFCExplosionAntispam.SETTINGS.BARREL_TIMOUT_OFFSET_MAX )
+            clearTime = CFCExplosionAntispam.SETTINGS.BARREL_TIMOUT:GetFloat() + math.Rand( 0, CFCExplosionAntispam.SETTINGS.BARREL_TIMOUT_OFFSET_MAX:GetFloat() )
             timer.Simple( clearTime, function()
                 if not IsValid( ent ) then return end
 
