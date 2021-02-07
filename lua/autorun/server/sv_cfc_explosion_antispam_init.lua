@@ -1,12 +1,12 @@
 CFCExplosionAntispam = CFCExplosionAntispam or {}
 
 CFCExplosionAntispam.SETTINGS = {
-    NEAR_DIST = CreateConVar( "cfc_explosion_antispam_near_dist", math.pow( 250, 2 ), FCVAR_NONE, "How close explosive damage events must be to get limited, to the power of 2 (default 250^2)", 1, 2^31 - 1 )
-    MAX_NEAR = CreateConVar( "cfc_explosion_antispam_max_near", 10, FCVAR_NONE, "The max number of explosive damage events allowed in an area (default 10)", 1, 50000 )
-    EXPLOSION_TIMEOUT = CreateConVar( "cfc_explosion_antispam_explosion_timeout", 1, FCVAR_NONE, "How long explosive damage events stay logged for, in seconds (default 1)", 0, 50000 )
-    BARREL_TIMOUT = CreateConVar( "cfc_explosion_antispam_barrel_timeout", 2, FCVAR_NONE, "Base timeout duration for explosive props, overrides the standard explosion timeout (default 2)", 0, 50000 )
-    BARREL_TIMOUT_OFFSET_MAX = CreateConVar( "cfc_explosion_antispam_barrel_timeout_offset_max", 1, FCVAR_NONE, "Adds random extra timeout duration (from 0 to this value) to explosive props so their explosions look more natural (default 1)", 0, 50000 )
-    STOP_ALL_DAMAGE_TIMEOUT = CreateConVar( "cfc_explosion_antispam_stop_all_timeout", 10, FCVAR_NONE, "Default duration to forcefully stop all explosive damage if CFCExplosionAntispam.stopAllDamage() is called (default 10)", 0, 50000 )
+    NEAR_DIST = CreateConVar( "cfc_explosion_antispam_near_dist", math.pow( 250, 2 ), FCVAR_NONE, "How close explosive damage events must be to get limited, to the power of 2 (default 250^2)", 1, 2^31 - 1 ),
+    MAX_NEAR = CreateConVar( "cfc_explosion_antispam_max_near", 10, FCVAR_NONE, "The max number of explosive damage events allowed in an area (default 10)", 1, 50000 ),
+    EXPLOSION_TIMEOUT = CreateConVar( "cfc_explosion_antispam_explosion_timeout", 1, FCVAR_NONE, "How long explosive damage events stay logged for, in seconds (default 1)", 0, 50000 ),
+    BARREL_TIMOUT = CreateConVar( "cfc_explosion_antispam_barrel_timeout", 2, FCVAR_NONE, "Base timeout duration for explosive props, overrides the standard explosion timeout (default 2)", 0, 50000 ),
+    BARREL_TIMOUT_OFFSET_MAX = CreateConVar( "cfc_explosion_antispam_barrel_timeout_offset_max", 1, FCVAR_NONE, "Adds random extra timeout duration (from 0 to this value) to explosive props so their explosions look more natural (default 1)", 0, 50000 ),
+    STOP_ALL_DAMAGE_TIMEOUT = CreateConVar( "cfc_explosion_antispam_stop_all_timeout", 10, FCVAR_NONE, "Default duration to forcefully stop all explosive damage if CFCExplosionAntispam.stopAllDamage() is called (default 10)", 0, 50000 ),
 }
 
 local stopAllDamage = false
