@@ -37,7 +37,6 @@ end
 local function validateExplosion( ent, dmg )
     if isNonBreakable( ent ) then return false end
 
-
     local pos = dmg:GetDamagePosition()
 
     if not pos then return end
