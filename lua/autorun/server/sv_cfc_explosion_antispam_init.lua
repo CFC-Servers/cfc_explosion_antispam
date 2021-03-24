@@ -28,7 +28,11 @@ function CFCExplosionAntispam.stopAllDamage( duration )
 end
 
 local function validateExplosion( ent, dmg )
-    if ent:GetClass() == "prop_physics" and ent:GetMaxHealth() <= 1 then return false end
+    if ent:GetClass() == "prop_physics" then -- Ignore non-breakable props
+        local kv = ent:GetKeyValues()
+
+        if kv.max_health == 1 and kv.ExplodeDamage == 0 then return false end
+    end
 
     local pos = dmg:GetDamagePosition()
 
