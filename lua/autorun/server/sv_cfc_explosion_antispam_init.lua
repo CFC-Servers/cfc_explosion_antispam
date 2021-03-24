@@ -28,6 +28,8 @@ function CFCExplosionAntispam.stopAllDamage( duration )
 end
 
 local function validateExplosion( ent, dmg )
+    if ent:GetClass() == "prop_physics" and ent:GetMaxHealth() <= 1 then return false end
+
     local pos = dmg:GetDamagePosition()
 
     if not pos then return end
