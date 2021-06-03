@@ -1,7 +1,5 @@
 # cfc_explosion_antispam
 Prevents too many explosions from happening in one place at one time
-# cfc_explosion_antispam
-Prevents too many explosions from happening in one place at one time
 
 ## Overview
 Like with many things, the Source engine is poorly optimized when it comes to explosions and destructible props.  
