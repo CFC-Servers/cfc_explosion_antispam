@@ -29,7 +29,7 @@ end
 
 local function isNonBreakable( ent )
     if ent:GetClass() ~= "prop_physics" then return false end
-    
+
     local kv  = ent:GetKeyValues()
     return kv.max_health == 1 and kv.ExplodeDamage == 0
 end
